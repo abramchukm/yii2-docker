@@ -1,5 +1,6 @@
 .env
 *.swp
-_host-volumes
-
+#_host-volumes
+*/node_modules/
 \.idea/
+.git/

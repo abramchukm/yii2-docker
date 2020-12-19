@@ -23,3 +23,22 @@ services:
       - ./_host-volumes/app:/app:delegated
       # Composer cache
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
+  api:
+    container_name: realworld-docker-api
+    build: ./api
+    command: npm run start
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - HOST=http://realworld-docker.com
+      - MONGO_URL=mongodb://api_db:27017/api
+    depends_on:
+      - api_db
+  api_db:
+    container_name: realworld-docker-api-db
+    image: mongo:latest
+    volumes:
+      - mongodb_api:/data/test
+volumes:
+  mongodb_api:
